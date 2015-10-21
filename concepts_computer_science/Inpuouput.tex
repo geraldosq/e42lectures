@@ -1,0 +1,126 @@
+\section{In out process}
+
+\subsection{Input/output in  C++}
+
+\begin{verbatim}
+
+
+Float_t AnalyzeSpill::EnterValue(){
+  // How to input a number.
+
+  //sprintf(text, "Please enter the value of %d", char_name_variable);
+
+    string  input="";
+    float input_value=0;
+
+      cout << "Please enter the value :";
+      getline(cin, input);
+      // This code converts from string to number safely.
+      stringstream(input) >> input_value ;
+      cout << "You entered: " << input_value << endl;
+
+      return input_value;
+
+}
+\end{verbatim}
+
+\subsection{Input/output with file C++}
+
+C++ provides the following classes to perfomr output and input of characters to/from files: 
+http://www.cplusplus.com/doc/tutorial/files/
+
+\begin{itemize}
+\item ofstream: stream class to write on files
+\item ifstream: stream class to read from files
+\item fstream: stream class to both readn and write from/to files
+\end{itemize}
+
+These classes are deried directly from the classes istream and ostream. We have already uses objects whose types were theses classes: \verb|cin| is an object of class \verb|istream| and \verb|cout| is an object of class \verb|ostream|.
+
+We can use our file stream the same way we are already used to use \verb|cin| and \verb|cout|, with the only difference that we have to associate these streams with physical files. 
+
+
+\begin{verbatim}
+#include <iostream>
+#include <fstream>
+using namespace std; 
+
+int main (){
+
+    ofstream myfile; 
+    myfile.open("example.txt", ios::out | ios::app); 
+     myfile << "Writing this to a file. \n";      
+     myfile.close(); 
+return 0; 
+
+
+}
+
+\end{verbatim}
+
+
+\subsubsection{Closing a File }
+
+We call the stream's member function \verb|close|. This member function takes flushes the associated buffers and closes the file: 
+
+\begin{verbatim}
+myfile.close(); 
+\end{verbatim}
+
+\subsubsection{Text files}
+
+Text files stream are those where the ios::binary flag \textbf{is not} included in their opening mode. These file are designed to store text and thus all values that are input or putput from/to them can suffer some formatting transformations, which do not necesarrily correspond to their literal binary value. 
+
+
+\begin{verbatim}
+// writing on a text file
+#include <iostream>
+#include <fstream>
+using namespace std;
+
+int main () {
+  ofstream myfile ("example.txt");
+  if (myfile.is_open())
+  {
+    myfile << "This is a line.\n";
+    myfile << "This is another line.\n";
+    myfile.close();
+  }
+  else cout << "Unable to open file";
+  return 0;
+}
+\end{verbatim}
+
+
+Reading from a file can also be performed in the same way that we did with cin:
+
+
+\begin{verbatim}
+// reading a text file
+#include <iostream>
+#include <fstream>
+#include <string>
+using namespace std;
+
+int main () {
+  string line;
+  ifstream myfile ("example.txt");
+  if (myfile.is_open())
+  {
+    while ( getline (myfile,line) )
+    {
+      cout << line << '\n';
+    }
+    myfile.close();
+  }
+
+  else cout << "Unable to open file"; 
+
+  return 0;
+}
+
+\end{verbatim}
+
+
+
+This last example reads a text file and prints out its content on the screen. We have created a while loop that reads the file line by line, using getline. The value returned by getline is a reference to the stream object itself, which when evaluated as a boolean expression (as in this while-loop) is true if the stream is ready for more operations, and false if either the end of the file has been reached or if some other error occurred.

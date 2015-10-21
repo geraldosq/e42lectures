@@ -1,0 +1,210 @@
+\section{What is all about with classes? }
+
+	Based on: \url{http://www.cplusplus.com/doc/tutorial/classes/} \\
+	Classes are expanded concept of data structures: like data structures, they can contain data members, but they can also contain function as members. 
+
+	\subsection{Definition}
+		An object is an instantiation of a class. In terms of variables, a class would be the type, and an object would be the variable. 
+
+		An object constructor is a class template which produces an object. In the design process you should think about variables, actions, data types and operators that your object will handle.  
+
+
+			\begin{figure}[h]
+					\centering
+					 \includegraphics[scale=0.6]{class_dog_object_dog.png}
+					 \label{Examples of class and objects}
+					 \caption{Class objects support 2 operations: attributes references  and instantiantion. Source \href{http://www.universocomputacao.com/images/dog.gif}{from here} }
+			\end{figure}
+
+
+		
+		Classes are defined using either keyword, with the following syntax:
+
+		\begin{verbatim}
+			class class_name{
+				access_specifier_1; 
+					member1; 
+				access_specifier_2;
+					member2;
+				...
+			} object_names;
+
+		\end{verbatim}
+
+		Where \verb|class_name| is a valid identifier for the class, \verb|object_names| is an optional list of names, for objects of this class. 
+
+		The body of the declaration can contain members, which can either be data or function declarations, and optionally \textit{access specifiers}.  Classes have the same format as plain \textit{data structures}, except that they can also include functions and have these new this called \textbf{\textit{access specifiers}}. An access specifer is one of the following three keywords: \textbf{private, public or protected}. These specifiers modify the access rights for the members: 
+
+		\begin{itemize}
+		\item private: members of a class are accessible only from within other members of the same class (friends).
+		\item protected: members are accessible from other members of the same class (or from their "friends"), bur also from members of their derived classes. 
+		\item public: members are accessible from anywhere the object is visible. 
+		\end{itemize}
+
+		All members of a class declared with the class keyword have private access for all its members. Therefore, any member that is declared before any other access specifier has private access automatically: 
+
+		\begin{verbatim}
+		class Rectangle{
+		    int width, height; 
+
+		public: 
+		    void set_values (int,int); 
+		    int area (void); 
+		}rect; 
+
+		\end{verbatim}
+
+		Declares a class (i.e., a type) called \verb|Rectangle| and an object (i.e. a variable) of this calls, called rect. This class contains four members. two data members of type int (width and height) with private access (because private is the default access level) and two member functions with public access: the functions \verb|set_values| and \verb|area|, of whihc for now we have only included their declaration, but not heir definition. 
+
+
+		Notice the difference between the \textit{class name} and the  \textit{object name}: Rectangle was the \textit{class name}, whereas \verb|rect| was an object of type \verb|Rectangle|. Is the same with 
+
+		\begin{verbatim}
+		int a; 
+		\end{verbatim}
+
+		where \verb|int| is the type name (the class) and \verb|a| is the variable name (the object).
+
+		After the declarations of \verb|Rectangle| and \verb|rect|, any of the public members of object \verb|rect| can be accessed as if thet were normal functions by simply inserting a dot (.) between \textix{object name} and \textit{member name}. Example: 
+
+		\begin{verbatim}
+		rect.set_value (3,4); 
+		myarea = rect.area();
+		\end{verbatim}
+
+		The only members of \verb|rect| that cannot be accessed from outside the class are \verb|width| and \verb|height|. 
+
+		\begin{verbatim}
+
+			// classes example
+			#include <iostream>
+			using namespace std;
+
+			class Rectangle {
+			    int width, height;
+			  public:
+			    void set_values (int,int);
+			    int area() {return width*height;}
+			};
+
+			void Rectangle::set_values (int x, int y) {
+			  width = x;
+			  height = y;
+			}
+
+			int main () {
+			  //creo mi objecto rect
+			  Rectangle rect;
+
+			  //Uso los metodos que tiene rect a mi interes
+			  rect.set_values (3,4);
+
+			  cout << "area: " << rect.area();
+			  return 0;
+			}
+
+		\end{verbatim}
+
+		\subsubsection{Scope operator :: }
+
+		The former example introduces the \textit{scope operator} (::, two colons) that is used in the definition of function \verb|set_values| to define a member of a class outside the class itself. 
+
+		The member function \verb|area| was included directly in the definition of a class given its extreme simplicity; \verb|set_values|, is merely declared with its prototype within the class, but its definition is outside it. 
+
+		The operator of scope (::) is used to specify that the function being defined is a member of a class \verb|Rectangle| and not a regula non-member function, also \textbf{granting} exactly the same class definintion. For exa,ple, the function \verb|set_values| has access to the variables width and height, which are private member of class \verb|Rectangle|. 
+
+		Private access allow that values cannot be modified in an unexpected way (unexpected from the point of view of the object).
+
+	\subsection{Constructor}
+
+		What would happen in the previous example if we called the member function \verb|area| before having called \verb|set_values|? An undetermined result, since the members width and height had never been assigned a value.
+
+		In order to avoid that, a class can include a special function called its \textit{constructor}, which is automatically called whenever a new object of this class is created, allowing the \textbf{class to initialize member variables or allocate storage}.
+
+		This constructor function is declared just like a regular member function, but with a name that matches the class name and without any return type; not even void.
+
+
+		The \verb|Rectangle| class above can easily be improved by implementing a constructor:
+
+		\begin{verbatim}
+			// example: class constructor
+			#include <iostream>
+			using namespace std;
+
+			class Rectangle {
+			    int width, height;
+			  public:
+			    Rectangle (int,int);
+			    int area () {return (width*height);}
+			};
+
+			Rectangle::Rectangle (int a, int b) {
+			  width = a;
+			  height = b;
+			}
+
+			int main () {
+			  Rectangle rect (3,4);
+			  Rectangle rectb (5,6);
+			  cout << "rect area: " << rect.area() << endl;
+			  cout << "rectb area: " << rectb.area() << endl;
+			  return 0;
+			}
+
+		\end{verbatim}
+
+		The results of this example are identical to those of the previous example. But now, class Rectangle has no member function \verb|set_values|, and has instead a constructor that performs a similar action: it initializes the values of width and height with the arguments passed to it.
+
+
+		Notice how these arguments are passed to the constructor at the moment at which the objects of this class are created:
+
+		\begin{verbatim}
+		Rectangle rect (3,4);
+		Rectangle rectb (5,6);
+		\end{verbatim}
+
+
+		Constructors cannot be called explicitly as if they were regular member functions. They are only executed once, when a new object of that class is created.
+
+		Notice how neither the constructor prototype declaration (within the class) nor the latter constructor definition, have return values; not even void: Constructors never return values, they simply initialize the object.
+
+	\subsection{A recipe for construct an class (OOP)}
+
+		\begin{itemize}
+		\item Define step by step the process that the object will do. 
+		\item Map the data and function of a simple object related with a process. 
+		  \subitem What are the member variables?
+		  \subitem How you will implement the behavior?
+		\item Make a proccess design center in the user
+		\item Construct the instruments, control and enviorment
+		\end{itemize}
+
+
+		Simplest form of class
+
+		Class definitions executed before the have any effect. 
+		Usually statements inside a class definition will usually be functions definitions
+
+		Class Objects 
+
+
+		Attribute references: Syntax obj.name
+
+		MyClass.i and MyClass.f are valid attribute references 
+		Return an interger
+		Return a function
+
+		\verb|__doc__| is also a valid attribute return the docstring belonging to the class. 
+
+
+	\subsection{Process of construction of an object}
+
+		A Class is a template or a set of instructions (a recipe) to build a specific type of the object. An instance uses a specific object built (an example ot simple ocurrence of something), this process is called. \textit{instantiation}. The result (a cake in the recipe mode) is the object.
+
+		The class is the blueprint which defines the structures, properties, methods. The properties are variables \textbf{defined} within the class, and the methods are functions \textbf{created} with the class. 
+
+
+	\subsection{C++ References}
+
+
+		C++ references allow yo to create a second name for the variable that can use to read or modify the original data stored in that variable. Whule this may not sound appealing at first, what this means is that when you declare a refeence and assign it a variable, it will allow you to treat the reference exactly as though it were the original variables for the  purpose of accessing and modifying the value of the original variable--even if the second name (the reference) is located within a different scope. This means, for instance, that if you make your function arguments references, and you will effectively have a way to change the original data passed into the function. This is quite different from how C++ normally works, where you have arguments to a function copied into new variables. It also allows you to dramatically reduce the amount of copying that takes place behind the scenes, both with functions and in other areas of C++, like catch clauses.

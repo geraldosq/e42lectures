@@ -1,0 +1,150 @@
+\section{Object Oriented programming}
+
+
+\subsection{Golden rule when working with OOP}
+
+	Basic ideas
+
+	Procedural programming languages: what should the program do next? The program: 
+	slit it up into a set of task and subtasks 
+	make functions for the task 
+	instruct the computer to perform them in sequence
+	Package up self-sufficient, modular pieces of code. Think in terms of interacting objects.
+	Focus on interaction between objects 
+
+
+\subsection{Principal concepts}
+C++ is an OOP with the following concepts: 
+
+\subsubsection{Encapsulation - purple}
+grouping related data and functions together as objects and defining an interface to those objects
+
+Packing related stuff together 
+With a class we only want to know about is its public methods/data: its interface
+Public and private access specifiers
+Definition of an object, the interaction occur by calling each other methods
+
+
+\subsubsection{Polymorphism -  green}
+Allowing a value to be one of several types, and determining at runtime which functions to call on it based on its type. 
+
+\subsubsection{Inheritance - red}
+Allowing code to be reused between related types. 
+
+Inheritance allows us to define hierarchies of related classesPacking related stuff together 
+With a class we only want to know about is its public methods/data: its interface
+Public and private access specifiers
+Definition of an object, the interaction occur by calling each other methods
+
+\begin{verbatim}
+class Vehicle{
+protected: 
+    string license; 
+     int year; 
+
+public: 
+
+//importante
+    Vehicle(const string &myLincese, const int myYear)
+          :    license(myLicense), year(myYear) {}
+   //funció n?
+    const string getDesc() const
+                   {return license + " from" + stringify(year);}
+//metodo    
+    const string &getLicense() const {return license;}
+//metodo
+    const int getYear() const {return year;}
+}; 
+
+
+class Car : public Vehicle { 
+    string style; 
+
+public: 
+
+    Car(const string &myLicense, cons int myYear, const string &myStyle)
+          : Vehicle(myLicense, myYear), style(myStyle) {}
+    const string &getStyle () {return style;}
+}; 
+
+\end{verbatim}
+\subsection{Is-a vs. Has-a}
+
+Every object A has a object B. Every Vehicle has a string object (called license)
+Every instance of A is a B instance. Every Car is a Vehicle. Implemented by declaring data members, not by inheritance. 
+Inheritance allows us to define "is-a" relationships, not to be used to implement "has-a" relationships.
+
+\subsubsection{Classes - orange }
+\subsubsection{Data Abstraction - light green }
+\subsubsection{Information Hiding - brown}
+
+Sintaxis necessary for using this language require this: 
+
+Flow of control 
+Functions
+Arrays and string 
+Pointers
+Classes
+OOP
+Memory management
+AT I & AT II 
+
+
+\section{Python and OOP}
+
+Minimun syntax and semantics.
+The class inheritance mechanism allows multiple base classes
+A derived class can override any methods of its base class or classes
+Method can call the method of a base class with the same name.
+Objects can contain arbitrary amounts and kinds of data.
+Dynamic nature: they are created at runtime, and can be modified further after creation.
+
+
+From the python website:
+
+Python is an interpreted, object-oriented, high-level programming language with dynamic semantics. Agnostic. 
+Its high-level built in data structures, combined with dynamic typing and dynamic binding
+Rapid Application Development, as well as for use as a scripting or glue language to connect existing components together.
+Python supports modules and packages, which encourages program modularity and code reuse.
+No compilation step, the edit-test-debug cycle is incredibly fast.
+Debugging Python programs is easy: a bug or bad input will never cause a segmentation fault.
+Instead, when the interpreter discovers an error, it raises an exception. When the program doesn't catch the exception, the interpreter prints a stack trace.
+A source level debugger allows inspection of local and global variables, evaluation of arbitrary expressions, setting breakpoints, stepping through the code a line at a time, and so on. 
+ 
+
+Breaking this down:
+
+High level - Programmers can write code that is agnostic to the underlying hardware or operating system
+Built in data structures - Python has a great number of built in types. In addition to the usual ints and floats the built in string class for example is extremely powerful. As well as this, the syntax for creating, loops and lists and other collection objects is more natural than for older languages. Developers can use their available time more wisely by dealing with high level abstractions rather than low-level types.
+Python is "interpreted" - Meaning no compilation step is needed.
+Python can and is often used in place of more traditional shell and perl scripts since it has almost as powerful string parsing abilities but much more straightforward syntax.
+In addition, the type of an object is determined when the script runs. The amount of typing is much reduced (no more \verb|"const int* blah = getBlah();")|. This can allow rapid-prototyping, i.e. writing a function/class/program to perform a desired task quickly. It does, however, introduce a class of bugs that strongly typed languages do not automatically suffer from.
+Programs written entirely in python also run more slowly than well-written compiled code. However, if this turns out to be a problem there ways to re-write only parts of the program in C/C++. This is exactly how "pyROOT" (discussed below) interfaces to ROOT.
+Python supports modules - Because python is quite an easy and well used open language there are thousands of people who have written extensions or "modules" to perform certain tasks well. With python is is always worth a quick google to see whether someone has written something to do pretty much what you want. Because python is also quite readable and distributed and run from it's source code, it is usually quite easy to see exactly what a library is doing.
+
+ 
+
+
+Ojo
+
+In C++ terminology
+Class members (including the data members) are public (except Private Variables and Class-local References)
+All member functions are virtual.
+Python OOP
+No shorthands for referencing the object’s members from its methods: the method function is declared with an explicit first argument representing the object
+
+
+Ojo 2 
+
+
+
+Aliasing: Objects have individuality, and multiple names (in multiple scopes) can be bound to the same object. Ignore when we use numbers, string, tuples. 
+Aliases behave like pointers in some respects.
+Passing an object is cheap since only a pointer is passed by the implementation; and if a function modifies an object passed as an argument, the caller will see the change — this eliminates the need for two different argument passing mechanisms as in Pascal.
+ 
+
+\url{https://docs.python.org/2/tutorial/classes.html}
+
+
+
+
