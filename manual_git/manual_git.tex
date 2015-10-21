@@ -1,0 +1,372 @@
+	\documentclass[12pt]{article}
+	\usepackage[a4paper,bindingoffset=0.2in,left=1.2in,right=0.98in,top=1.2in,bottom=0.98in,footskip=.25in]{geometry}
+	% Esto es para poder escribir acentos directamente:
+	%\usepackage[latin1]{inputenc}
+	% Esto es para que el LaTeX sepa que el texto está en español:
+	\usepackage[english]{babel}
+	\usepackage[utf8]{inputenc}
+	\usepackage{hyperref}% http://ctan.org/pkg/hyperref
+	%\usepackage{makeidx}
+	\usepackage{import}
+	\usepackage{example}
+	\usepackage{amsmath}
+	\usepackage{amsfonts}
+	\usepackage{verbatim}
+	\usepackage{graphicx}
+	\graphicspath{ {../images/} }
+	\usepackage{titlesec,lipsum}
+	\titleformat{\chapter}[display]{\normalfont\huge\bfseries}{\chaptertitlename\ \thechapter}{20pt}{\Huge}
+%	\usepackage[style=authoryear,backend=bibtex]{biblatex} %backend tells biblatex what you will be using to process the bibliography file
+	\usepackage{filecontents}
+	%\usepackage{setspace}
+	%\renewcommand{\baselinestretch}{1.5}
+	%\usepackage{helvet}
+	%\renewcommand{\familydefault}{\sfdefault}
+%	\usepackage[usenames]{color}
+
+
+
+%opening
+\title{Manual GitHub}
+\author{Gerald Salazar \\
+Universidad Nacional de Ingeniería \\
+Amancaes I+d+i}
+
+\begin{document}
+
+\maketitle
+\tableofcontents
+\newpage
+
+
+\begin{abstract}
+Este es el abstract
+\end{abstract}
+
+\chapter{Theory and concepts}
+
+ 	\section{GitHub Flow - Hello world}
+
+		Branch-based workflow that supports teams and projects where deployments are made regularly\footnote{This information comes from \url{https://guides.github.com/introduction/flow/}{Understanding GitHub Flow}}. 
+
+		\begin{enumerate}
+		\item Create a branch 
+		\item Add commits 
+		\item Open a pull request 
+		\item Discuss and review your code
+		\item Deploy 
+		\item Merge
+		\end{enumerate}
+
+	\subsection{Create a Repository}
+
+		`A repository is the basic unit GitHub, most commonly a single project. Repositories can contain folders and files, including images - anything your projects needs' (from \href{https://guides.github.com/activities/hello-world/}{GitHub Hello World}). 
+
+		For initialize the monitoring of the directory: 
+
+			\begin{verbatim}
+			$ git init \\ initialize the monitoring of the local repository where you are.
+			$ git status \\ on a master branch
+			\end{verbatim}
+
+
+		\subsubsection{Initialize a repository in an existing directory}
+
+			To pull our local repo to the GitHub server, it is necessary to add a remote repository. This command takes a \textit{remote name} and a \textit{repository URL}, for example \url{ https://github.com/try-git/try_git.git.}
+
+	\subsection{Remote repositories}
+
+			In a new empty GitHub repository \verb|try_git.git|, we will
+			try to push our local repo to the GitHub Server.
+			Add a remote repository.
+
+			\begin{verbatim}
+
+			$ git init \\ initialize the monitoring of the local repository where you are.
+			$ git status \\ on a master branch
+
+			#new 
+
+			$ git remote add origin <https://github.com/diretion>
+			$ git push -u origin master
+			\end{verbatim}
+
+			\textbf{Origin}, is the name of the repository, the name that replace the \textbf{url}. \textbf{Master}, by default is the
+			master branch, you can push commits to other branches. We are sending the updates to the main branch, not a fork.
+
+			The following example is not correct after all, because w don't know what is 'tb2`.
+
+			\begin{verbatim}
+			$ git push -u tb2 master
+			\end{verbatim}
+
+			\subsubsection{To remove a repository}
+
+			\begin{verbatim}
+			$ git remote rm origin
+			\end{verbatim}
+
+			Where "origin" is the name of the remote repository. If you want to
+			remove the "experimental" branch on the remote.
+
+			\begin{verbatim}
+			$ git remote rm experimental
+			\end{verbatim}
+		
+
+	\subsection{Open an issue}
+
+		`An \textbf{issue} is a note on a repository about something that needs attention. It could be bug, a feature request, a question or lots of other things. On GitHub you can label, search and assign issues, making managing an active project easier'. (from \href{https://guides.github.com/activities/hello-world/}{GitHub Hello World}). 
+
+
+
+	\subsection{Create a branch}
+
+		Creating a branch allows you to make modifications in your code with out affecting the master code. There is one rule: anything in the \textbf{master} branch is always deployable\footnote{Deployable: to come into a position ready for use.}. 
+
+		`Branching is the way to work on differents parts of a repository at one time. When you create a repository, by default it has one branch with name \verb|master|. 
+
+		You could keep working on this branch and have only one. But if you have another feature or idea you want to work on, you can create another branch, starting from \verb|master|, so that can you leave \verb|master| in its working state.
+
+
+		When you create a branch, you're making a copy of the original branch as it was at point in time (like a photo snapshot). If the original branch changes while you're working on your new branch, no worries, you can always pull in those updates` (from \href{https://guides.github.com/activities/hello-world/}{GitHub Hello World}). 
+
+
+		\begin{itemize}
+		\item Go to your new repository \verb|hello-world|.
+		\item Click \tectbf{branch:master}.
+		\item Type a branch name, \verb|readme-edits|		
+		\end{itemize}
+
+		
+		\begin{verbatim}
+		Because of this, it's extremely important that your new branch
+		is created off of master when working on a feature or a fix. 
+		Your branch name should be descriptive (e.g., refactor-
+		authentication, user-content-cache-key, make-retina-avatars), 
+		so that others can see what is being worked on.
+		GitHub Guides
+		\end{verbatim}
+
+
+		\subsubsection{Branching Out and switching branches}
+
+		For creating a new branch called \textbf{clean_up}:
+
+		\begin{verbatim}
+		$ git branch clean_up
+		\end{verbatim}
+
+		For switching branches, first you have to chech in wich branch you are and then switch to the clean_up branch:
+
+		\begin{verbatim}
+		$ git branch
+		>master
+		$ git checkout clean_up
+		>Switched to branch 'clean_up'
+		\end{verbatim}
+
+		Let's assume that you want to remove files, you can use \verb|git rm *.txt| to remove them not also from the branch but also from the stage area. 
+
+		\subsubsection{Commiting Branch Changes}
+
+		After making all the changes, use the following command for commit the changes
+
+
+		\begin{verbatim}
+		$ git commit -m "text"
+		\end{verbatim}
+
+
+		\subsubsection{Switching Back to master}
+
+		\begin{verbatim}
+		$ git checkout master
+		\end{verbatim}
+
+		
+	
+	
+
+	\subsection{Add commits}
+
+		Saved changes are called \textbf{commits} with an associated  \erb|commit message|, which is a description. Once the branch has been created. Any change means a commit, and adding them to the branch. Each commit is considered a separate unit of change. 
+
+		\begin{centering}
+		\begin{verbatim}
+		Commit messages are important, especially since Git tracks 
+		your changes and then displays them as commits once they're
+		pushed to the server. By writing clear commit messages, you 
+		can make it easier for other people to follow along and 
+		provide feedback.
+		\end{verbatim}
+		\end{centering}
+	
+		After making the changes, click \textbf{Commit changes}, now these changes will be in the branch in which you are working, and if its not the master branch, you have to make a Pull Request. 
+
+		To tell Git to start tracking chnages made to octocat.txt, we first need to add it to the staging are by using git add. 
+		
+		\begin{verbatim}
+		$ git add file.filetxt \\ file is in the staging area
+		$ git commit -m "message"  \\ store our staged changes
+		$ git status
+		\end{verbatim}
+
+		The files listed after \verb|git add| are in \textbf{Staging Area}, but not in the repository yet. As the name indicates, is a stage, area that can be modified before store the files in the repository. 
+
+		For adding all changes, use the wildcards
+
+		\begin{verbatim}
+		$ git init \\ initialize the monitoring of the local repository where you are.
+		$ git status \\ on a master branch
+
+		#new 
+		$ git add '*.txt'
+		$ git commit -m 'Add all the octo txt files'
+		$ git log
+		\end{verbatim}
+
+		Use the \verb|git log| option for seeing the history of commits we have made. 
+
+
+
+
+
+
+
+	\subsection{Open a Pull Request}
+
+		There are two ways to do the pull request (or pushing remotelly), here is the web version: 
+
+		\begin{enumerate}
+		\item Click the  Pull Request icon on the sidebar, then from the Pull Request page, click the green New pull request button.\footnote{\href{https://guides.github.com/activities/hello-world/}{Steps from the official web.}}
+		\item Select the branch you made, \verb|readme-edits| (the branch), to compare with \verb|master| (the original).
+		\item Look over your changes in the diffs on the Compare page, make sure they’re what you want to submit.
+		\item When you’re satisfied that these are the changes you want to submit, click the big green Create Pull Request button.
+		\item Give your pull request a title and since it relates directly to an open issue, include “fixes #” and the issue number in the title. Write a brief description of your changes.
+		\item When you’re done with your message, click Create pull request!
+		\end{enumerate}
+
+		And here is the console version. The pusf command tells Git where to put our local changes to our origin repo (on GitHub).
+
+		The name of our remote is \textbf{origin} and the default local branch name is \textbf{master}. The \textbf{-u} tells Git to remember the parameters.
+
+		\begin{verbatim}
+
+		$ git init \\ initialize the monitoring of the local repository where you are.
+		$ git status \\ on a master branch
+		$ git add '*.txt'
+		$ git commit -m 'Add all the octo txt files'
+		
+		# new
+
+		$ git push -u origin master
+
+		\end{verbatim}
+
+
+	\subsection{Merge your Pull Request}
+
+		In the web version: 
+
+		\begin{enumerate} 
+		\item Click the green button to merge the changes into master. \footnote{\href{https://guides.github.com/activities/hello-world/}{Steps from the official web.}}
+		\item Click Confirm merge.
+		\item Go ahead and delete the branch, since its changes have been incorporated, with the Delete branch button in the purple box.
+		\end{enumerate}
+
+		\subsubsection{Preparing to merge}
+
+		Merge your changes from the clean_up branch into the master branch. Take a deep breath, it's not that scary.
+
+		\begin{verbatim}
+		$ git checkout master
+		$ git merge <name_of_branch>
+		\end{verbatim}
+
+		For delete the branch use: -d <branch name> 
+
+		\begin{verbatim}
+		$ git branch -d <name_of_branch>
+		\end{verbatim}
+		
+
+
+	\subsection{Pulling Remotely}
+
+
+		For checking hte changes on our GitHub repository and pull down any new changes by running: 
+
+
+		\begin{verbatim}
+		$ git pull origin master
+		\end{verbatim}
+
+
+	\subsection{Differences and Reseting the Stage}
+
+		For seeing how different from our las commit by using the \textbf{git diff} command. 
+
+		\begin{verbatim}
+		$ git diff HEAD
+		\end{verbatim}
+
+		Another option to use diff, is with staged files:
+
+		\begin{verbatim}
+		$ git add octofamily/octodog.txt
+		$ git diff --staged		
+		\end{verbatim}
+
+
+		For resetting the stage, or unstage file use: 
+
+		\begin{verbatim}
+		$ git reset octofamily/octodog.txt		
+		\end{verbatim}
+
+		For Undo
+
+		\begin{verbatim}
+		$ git checkout --octocat.txt
+		\end{verbatim}
+
+
+	\subsection{Cloning an existing repository}
+
+		\begin{verbatim}
+		$ git clone git://github.com/name/try_git.git
+		\end{verbatim}
+
+	\subsection{Tell GIT who you are}
+
+			\begin{verbatim}
+			$ git config --global user.name "Sam Smith"
+			$ git config --global user.email sam@example.com
+			\end{verbatim}
+
+
+
+	\subsection{Pull remotely from the repository in the cloud}
+
+			\begin{verbatim}
+			$ git pull origin master \\pull down the changes in the main repository
+			\end{verbatim}
+
+\section{The Final Push}
+
+
+\begin{verbatim}
+$ git push 
+\end{verbatim}
+ 
+\section{In sequence}
+ 
+
+\begin{verbatim}
+$ git init
+$ 
+\end{verbatim}
+ 
+
+\end{document}
